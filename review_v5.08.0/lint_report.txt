@@ -1,0 +1,289 @@
+
+====================================================================================================
+1. STRUCTURE
+====================================================================================================
+file: Sbugo_addlay_insert.lsp   bytes=335490 lines=3581
+CRLF lines: 3580 / LF-only: 0
+top-level forms: 31  (defun: 26)
+paren/string problems: none
+top-level non-defun forms executed at load time (5):
+   line     4: (vl-load-com)
+   line     6: (setq G_SbugoPDButtonSplitSheetIntoSeveralSheet T)
+   line  3578: (princ "\n[Info] Старт плагина SBADDLAY [Info]")
+   line  3579: (princ "\n[Info] Версия плагина 5.08.0  [Info]")
+   line  3580: (princ)
+
+====================================================================================================
+2. FUNCTION INVENTORY / SCOPE HYGIENE
+====================================================================================================
+top-level defuns (26):
+   line    12  SBUGOPDNEWCONFIGSBUGOADDLAYINSERTINI             params=0 locals=1 nested=1
+   line   208  SBUGOPDLOADCONFIGSBUGOADDLAYINSERTINI            params=0 locals=2 nested=1
+   line   267  SBUGOPDCONFIGSSETINGLAYOUT                       params=1 locals=1 nested=1
+   line   291  SBUGO-ADDLAY                                     params=6 locals=53 nested=3
+   line  1038  SBUGO-SET-LAYOUT-TYPE-PRINTER                    params=3 locals=3 nested=1
+   line  1201  SBUGO-SET-SELECT-TYPE-PRINTER                    params=1 locals=17 nested=1
+   line  1491  MINELEMENT                                       params=1 locals=1 nested=1
+   line  1504  MAXELEMENT                                       params=1 locals=1 nested=1
+   line  1518  GETBOUNDINGBOX_DYNBLOCK                          params=2 locals=6 nested=1
+   line  1610  SBUGO-ADDLAY-READ                                params=1 locals=1 nested=1
+   line  1692  SBUGO-ADDLAY-ERROR-READ                          params=0 locals=1 nested=1
+   line  1712  SBUGO-ALLERT-REENTER-LIST-INSERT                 params=0 locals=1 nested=1
+   line  1740  C:SBADDLAY                                       params=0 locals=6 nested=1
+   line  2254  SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET       params=1 locals=23 nested=4
+   line  2927  SBUGOPD-SPECIAL-CHARACTERS-NAME-NEW-BLOCK        params=1 locals=3 nested=1
+   line  2989  SBUGO-LAYER-STATE-LIST                           params=1 locals=5 nested=1
+   line  3023  SBUGO-ADDLAY-RETURNS-LAYER-STATUS                params=0 locals=3 nested=1
+   line  3057  SBUGO-GET-COORDINATES-THE-BLOCK                  params=1 locals=14 nested=2
+   line  3231  SBUGO-GET-INSERTPOINT-X-Y-COORDINATES            params=2 locals=13 nested=1
+   line  3448  SBUGOPDVPOINSERT                                 params=1 locals=6 nested=0
+   line  3487  SBUGOPDVPOINSERT:POLYVERTICES                    params=1 locals=0 nested=0
+   line  3515  SBUGOPDPCS2WCS                                   params=2 locals=5 nested=0
+   line  3549  SBUGOPDTRP                                       params=1 locals=0 nested=0
+   line  3555  SBUGOPDMXM                                       params=2 locals=0 nested=0
+   line  3561  SBUGOPDMXV                                       params=2 locals=0 nested=0
+   line  3567  SBUGOPDVXS                                       params=2 locals=0 nested=0
+duplicate top-level names: none
+
+nested defuns:
+   line    14  *ERROR*                                  inside SBUGOPDNEWCONFIGSBUGOADDLAYINSERTINI     ok (declared local)
+   line   210  *ERROR*                                  inside SBUGOPDLOADCONFIGSBUGOADDLAYINSERTINI    ok (declared local)
+   line   272  *ERROR*                                  inside SBUGOPDCONFIGSSETINGLAYOUT               ok (declared local)
+   line   353  *ERROR*                                  inside SBUGO-ADDLAY                             ok (declared local)
+   line   551  SBUGO-ADDLAY-ERROR-READ                  inside SBUGO-ADDLAY                             LEAKS to global namespace when parent runs
+   line   552  *ERROR*                                  inside SBUGO-ADDLAY-ERROR-READ                  ok (declared local)
+   line   592  SBUGO-ADDLAY-ERROR-READ                  inside SBUGO-ADDLAY                             LEAKS to global namespace when parent runs
+   line   593  *ERROR*                                  inside SBUGO-ADDLAY-ERROR-READ                  ok (declared local)
+   line  1047  SBUGO-LOCAL-SET                          inside SBUGO-SET-LAYOUT-TYPE-PRINTER            ok (declared local)
+   line  1242  SBUGO-LOCAL-SELECT                       inside SBUGO-SET-SELECT-TYPE-PRINTER            ok (declared local)
+   line  1493  *ERROR*                                  inside MINELEMENT                               ok (declared local)
+   line  1506  *ERROR*                                  inside MAXELEMENT                               ok (declared local)
+   line  1523  *ERROR*                                  inside GETBOUNDINGBOX_DYNBLOCK                  ok (declared local)
+   line  1613  *ERROR*                                  inside SBUGO-ADDLAY-READ                        ok (declared local)
+   line  1695  *ERROR*                                  inside SBUGO-ADDLAY-ERROR-READ                  ok (declared local)
+   line  1714  *ERROR*                                  inside SBUGO-ALLERT-REENTER-LIST-INSERT         ok (declared local)
+   line  1768  *ERROR*                                  inside C:SBADDLAY                               ok (declared local)
+   line  2307  *ERROR*                                  inside SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET ok (declared local)
+   line  2316  SBUGO-LOCAL-READ-SETTING                 inside SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET ok (declared local)
+   line  2350  SBUGO-LOCAL-CALCULATE-OBJECT-SIZE        inside SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET ok (declared local)
+   line  2441  SBUGO-LOCAL-FILLING-LIST-AND-SETTING-DATA inside SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET ok (declared local)
+   line  2468  SBUGOPD:LM:LISTUP                        inside SBUGO-LOCAL-FILLING-LIST-AND-SETTING-DATA ok (declared local)
+   line  2469  FOO                                      inside SBUGOPD:LM:LISTUP                        ok (declared local)
+   line  2491  SBUGOPD:LM:LISTDOWN                      inside SBUGO-LOCAL-FILLING-LIST-AND-SETTING-DATA ok (declared local)
+   line  2504  SBUGOPD:LM:LISTTOP                       inside SBUGO-LOCAL-FILLING-LIST-AND-SETTING-DATA ok (declared local)
+   line  2517  SBUGOPD:LM:LISTBOTTOM                    inside SBUGO-LOCAL-FILLING-LIST-AND-SETTING-DATA ok (declared local)
+   line  2530  SBUGOPD:LM:REMOVEITEMS                   inside SBUGO-LOCAL-FILLING-LIST-AND-SETTING-DATA ok (declared local)
+   line  2932  *ERROR*                                  inside SBUGOPD-SPECIAL-CHARACTERS-NAME-NEW-BLOCK ok (declared local)
+   line  2991  *ERROR*                                  inside SBUGO-LAYER-STATE-LIST                   ok (declared local)
+   line  3028  *ERROR*                                  inside SBUGO-ADDLAY-RETURNS-LAYER-STATUS        ok (declared local)
+   line  3075  *ERROR*                                  inside SBUGO-GET-COORDINATES-THE-BLOCK          ok (declared local)
+   line  3082  SBUGO-BLOCK-CONTENTS                     inside SBUGO-GET-COORDINATES-THE-BLOCK          ok (declared local)
+   line  3249  *ERROR*                                  inside SBUGO-GET-INSERTPOINT-X-Y-COORDINATES    ok (declared local)
+   !! nested defun at line 551 redefines top-level function SBUGO-ADDLAY-ERROR-READ (defined at line 1692)
+   !! nested defun at line 592 redefines top-level function SBUGO-ADDLAY-ERROR-READ (defined at line 1692)
+
+====================================================================================================
+3. GLOBAL LEAKS: variables assigned (setq / out-params) without being local or a parameter
+====================================================================================================
+   FORMAT                                     SBUGO-ADDLAY@442
+   G_SBUGOPDBUTTONSPLITSHEETINTOSEVERALSHEET  C:SBADDLAY@1777
+   G_SBUGOPDDEFAULTSELECTINIFILE              SBUGOPDLOADCONFIGSBUGOADDLAYINSERTINI@238, C:SBADDLAY@2087
+   LST                                        SBUGO-ADDLAY@782
+   OLD1ECHO                                   SBUGO-ADDLAY-ERROR-READ@1701
+   OLD2ECHO                                   SBUGO-ALLERT-REENTER-LIST-INSERT@1720
+   OLDECHO                                    SBUGO-ADDLAY-READ@1619, C:SBADDLAY@1774
+   SBUGODCL_IDNUMBER                          C:SBADDLAY@2027
+   SBUGODDISTATUS                             C:SBADDLAY@2236
+   SBUGOERRDDISTATUS                          SBUGO-ALLERT-REENTER-LIST-INSERT@1730
+   SBUGOPDANGLEOFROTATION                     SBUGOPDCONFIGSSETINGLAYOUT@282
+   SBUGOPDCENTERPLOT                          SBUGO-ADDLAY-READ@1651, C:SBADDLAY@2175
+   SBUGOPDDELETELAYOUTS                       SBUGO-ADDLAY-READ@1664
+   SBUGOPDDENOMINATOR                         SBUGO-ADDLAY-READ@1654, C:SBADDLAY@2187
+   SBUGOPDFIRSTSHEET                          SBUGO-ADDLAY-READ@1623, SBUGO-ADDLAY-ERROR-READ@1703, C:SBADDLAY@2074
+   SBUGOPDFORMATSORTRAMKI                     SBUGO-ADDLAY-READ@1659, C:SBADDLAY@2100
+   SBUGOPDFORMTOLAYOUT                        SBUGOPDCONFIGSSETINGLAYOUT@281
+   SBUGOPDIDOPENREADINIFILE                   SBUGOPDLOADCONFIGSBUGOADDLAYINSERTINI@233
+   SBUGOPDIDOPENWRITEINIFILE                  SBUGOPDNEWCONFIGSBUGOADDLAYINSERTINI@30
+   SBUGOPDINCLINATIONAXISLOWERX               SBUGO-ADDLAY-READ@1639, C:SBADDLAY@2138
+   SBUGOPDLAYERBLOCKFORRUN                    SBUGO-ADDLAY-READ@1656, C:SBADDLAY@2091
+   SBUGOPDLAYERINSUNITSTOMM                   SBUGO-ADDLAY-READ@1658, C:SBADDLAY@2097
+   SBUGOPDLAYERNOBLOCK                        SBUGO-ADDLAY@393
+   SBUGOPDLAYOUTPREFIX                        SBUGO-ADDLAY-READ@1621, C:SBADDLAY@2070
+   SBUGOPDLAYOUTSUFIX                         SBUGO-ADDLAY-READ@1624, C:SBADDLAY@2078
+   SBUGOPDLISTALLCOPYINSERTOBJECT             SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET@2750
+   SBUGOPDLISTOFSHEETSETTINGS                 SBUGOPDLOADCONFIGSBUGOADDLAYINSERTINI@242
+   SBUGOPDMOVEFRAMETOPAPER                    SBUGO-ADDLAY-READ@1647, C:SBADDLAY@2160
+   SBUGOPDNAMEOLDCURRDEFOLTLAYER              SBUGO-ADDLAY@395
+   SBUGOPDNAMEREADINIFILE                     SBUGOPDLOADCONFIGSBUGOADDLAYINSERTINI@216
+   SBUGOPDNAMESLAYERFOFORMS                   SBUGO-ADDLAY@392
+   SBUGOPDNAMESLAYERFORMSFORBLOCK             SBUGO-ADDLAY@411
+   SBUGOPDNAMEWRITEINIFILE                    SBUGOPDNEWCONFIGSBUGOADDLAYINSERTINI@20
+   SBUGOPDNOCHECKPARALLELISM                  SBUGO-ADDLAY-READ@1634, C:SBADDLAY@2140
+   SBUGOPDNUMDELETE                           SBUGO-ADDLAY-READ@1663
+   SBUGOPDNUMERATOR                           SBUGO-ADDLAY-READ@1653, C:SBADDLAY@2183
+   SBUGOPDNUMSTYLEPRINT                       SBUGO-ADDLAY-READ@1673, C:SBADDLAY@2103
+   SBUGOPDPAPERUNITS                          SBUGO-ADDLAY-READ@1655, C:SBADDLAY@2191
+   SBUGOPDPLOTHIDDEN                          SBUGO-ADDLAY-READ@1629, C:SBADDLAY@2123
+   SBUGOPDPLOTNAMEFILE                        SBUGOPDCONFIGSSETINGLAYOUT@280
+   SBUGOPDPLOTVIEWPORTSFIRST                  SBUGO-ADDLAY-READ@1628, C:SBADDLAY@2120
+   SBUGOPDPLOTWITHLINEWEIGHTS                 SBUGO-ADDLAY-READ@1626, C:SBADDLAY@2114
+   SBUGOPDPLOTWITHPLOTSTYLES                  SBUGO-ADDLAY-READ@1627, C:SBADDLAY@2117
+   SBUGOPDSCALE                               SBUGO-ADDLAY-READ@1683, C:SBADDLAY@2106
+   SBUGOPDSCALEAUTOENABLE                     C:SBADDLAY@2109
+   SBUGOPDSCALELINEWEIGHTS                    SBUGO-ADDLAY-READ@1630, C:SBADDLAY@2126
+   SBUGOPDSPISOK_TEMP                         SBUGOPDLOADCONFIGSBUGOADDLAYINSERTINI@244
+   SBUGOPDSTANDARDSCALE                       SBUGO-ADDLAY-READ@1650, C:SBADDLAY@2170
+   SBUGOPDSTYLEPRINT                          SBUGO-ADDLAY-READ@1676
+   SBUGOPDTEMPINCREMENT                       SBUGO-ADDLAY@404
+   SBUGOPDTEMPMAXPOINT                        SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET@2778
+   SBUGOPDTEMPMINPOINT                        SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET@2778
+   SBUGOPDTRIMVIEWPORTTOFRAME                 SBUGO-ADDLAY-READ@1648, C:SBADDLAY@2164
+   SBUGOPDTYPEPHYSICALPRINTER                 SBUGO-ADDLAY-READ@1660, C:SBADDLAY@2194
+   SBUGOPDTYPEPRINT                           SBUGO-ADDLAY-READ@1652, C:SBADDLAY@2178
+   SBUGOPDVIEWANNOALLVISIBLE                  SBUGO-ADDLAY-READ@1632, C:SBADDLAY@2132
+   SBUGOPDVIEWANNOAUTOSCALE                   SBUGO-ADDLAY-READ@1633, C:SBADDLAY@2135
+   SBUGOPDVIEWPLOTSTYLESINLAYOUT              SBUGO-ADDLAY-READ@1631, C:SBADDLAY@2129
+   SBUGOPDVIEWPORTSETLAYER                    SBUGO-ADDLAY-READ@1657, C:SBADDLAY@2094
+   SBUGOPD_TEMP_UNIQUE_ALERT                  SBUGOPD-SPECIAL-CHARACTERS-NAME-NEW-BLOCK@2945
+   SBUGOREENTERDCL_IDNUMBER                   SBUGO-ALLERT-REENTER-LIST-INSERT@1723
+   SHOWBOUNDARIESVIEWPORT                     SBUGO-ADDLAY-READ@1649, C:SBADDLAY@2167
+total distinct leaked symbols: 62
+
+top-level (load time) setq: [('G_SBUGOPDBUTTONSPLITSHEETINTOSEVERALSHEET', 6)]
+
+====================================================================================================
+4. TYPOS: symbols read but never assigned/declared anywhere and not built-in
+====================================================================================================
+   \\                                       first line  1726  (4 reads)
+   ВВОДА                                    first line  1726  (3 reads)
+   ДАЛЬШЕ                                   first line  2080  (1 reads)
+   ДАЛЬШЕ.                                  first line  1726  (3 reads)
+   ЕНТЕР                                    first line  1726  (3 reads)
+   ЕНТЕР,                                   first line  2080  (1 reads)
+   ЕСЛИ                                     first line  1726  (4 reads)
+   ЖДЁМ                                     first line  1726  (3 reads)
+   И                                        first line  1726  (6 reads)
+   ИЛИ                                      first line  1726  (3 reads)
+   ИНАЧЕ                                    first line  1726  (3 reads)
+   НАЖАЛИ                                   first line  1726  (4 reads)
+   ПОЛОЖИТЕЛЬНОЕ                            first line  1726  (3 reads)
+   ПРОВЕРЯЕМ                                first line  1726  (3 reads)
+   ПРЫГАЕМ                                  first line  1726  (4 reads)
+   СТОП                                     first line  1726  (3 reads)
+   Т                                        first line  1668  (1 reads)
+   ТАБ,                                     first line  1726  (3 reads)
+   ТО                                       first line  1726  (4 reads)
+   ЧИСЛО                                    first line  1726  (3 reads)
+   ЧТО                                      first line  1726  (3 reads)
+   ЭТО                                      first line  1726  (3 reads)
+   (Cyrillic words and a lone backslash here are the pseudo-comments after '\\' - see section 6; 'T' with Cyrillic letter is line 1668)
+
+Declared local but never assigned AND never read in the function (dead locals):
+   GETBOUNDINGBOX_DYNBLOCK                       MIN_POINT, MAX_POINT, 3D_POLARP
+
+Parameters never read (unused parameters):
+
+Functions defined but never called (excluding commands c:*):
+
+====================================================================================================
+5. DCL KEY CROSS-CHECK
+====================================================================================================
+DCL extracted from the (foreach item '(...)) string list inside the source
+DCL: 17051 bytes (cp1251, CRLF), 54 keys, braces: open=116 close=116
+   callback at line 2085 has paren problems: [(1, "extra ')' at top level")] -> (if (= (get_tile \"dclSbugoPDDeleteLayouts\") \"1\")(progn (mode_tile \"dcl_text
+keys used in code but missing in DCL:
+   dclSbugoPDScaleLineweightsn                   lines [2127]
+DCL keys never referenced from code:
+   dclSbugoPDFormatSortRamkiIgnore
+
+DCL attribute lint:
+   dcl line 50: alignment = rigth   <-- not a valid value
+   dcl line 221: unquoted numeric value '0' (value is a string attribute)
+   dcl line 222: unquoted numeric value '0' (value is a string attribute)
+   dcl line 223: unquoted numeric value '0' (value is a string attribute)
+   dcl line 224: unquoted numeric value '1' (value is a string attribute)
+
+====================================================================================================
+6. SMELLS
+====================================================================================================
+non-ASCII characters inside symbol names (look-alike letters): [(1668, 'Т'), (1726, 'если'), (1726, 'нажали'), (1726, 'ентер'), (1726, 'или'), (1726, 'таб,'), (1726, 'то'), (1726, 'проверяем'), (1726, 'что'), (1726, 'это'), (1726, 'положительное'), (1726, 'число'), (1726, 'и'), (1726, 'прыгаем'), (1726, 'дальше.'), (1726, 'Иначе'), (1726, 'стоп'), (1726, 'и'), (1726, 'ждём'), (1726, 'ввода'), (2080, 'если'), (2080, 'нажали'), (2080, 'ентер,'), (2080, 'то'), (2080, 'прыгаем'), (2080, 'дальше'), (2185, 'если'), (2185, 'нажали'), (2185, 'ентер'), (2185, 'или'), (2185, 'таб,'), (2185, 'то'), (2185, 'проверяем'), (2185, 'что'), (2185, 'это'), (2185, 'положительное'), (2185, 'число'), (2185, 'и'), (2185, 'прыгаем'), (2185, 'дальше.'), (2185, 'Иначе'), (2185, 'стоп'), (2185, 'и'), (2185, 'ждём'), (2185, 'ввода'), (2189, 'если'), (2189, 'нажали'), (2189, 'ентер'), (2189, 'или'), (2189, 'таб,'), (2189, 'то'), (2189, 'проверяем'), (2189, 'что'), (2189, 'это'), (2189, 'положительное'), (2189, 'число'), (2189, 'и'), (2189, 'прыгаем'), (2189, 'дальше.'), (2189, 'Иначе'), (2189, 'стоп'), (2189, 'и'), (2189, 'ждём'), (2189, 'ввода')]
+stray backslash atoms outside strings (probably meant to be comments): 
+   line 1726: '\\\\' -> (action_tile "dclSbugoPDErrFirstSheet" "(if (or (zerop(atoi $value)) (minusp(atoi $value)) ) (progn (alert \"Б
+   line 2080: '\\\\' -> (action_tile "dclSbugoPDLayoutSufix" "(if (= $reason 1)(mode_tile \"dclSbugoPDDeleteLayouts\" 2))") \\ если на
+   line 2185: '\\\\' -> (action_tile "dclSbugoPDNumerator" "(if (or (zerop(atof $value)) (minusp(atof $value)) ) (progn (alert \"Буквы
+   line 2189: '\\\\' -> (action_tile "dclSbugoPDDenominator" "(if (or (zerop(atof $value)) (minusp(atof $value)) ) (progn (alert \"Бук
+
+standalone '\\' tokens in code lines:
+   line 1726: (action_tile "dclSbugoPDErrFirstSheet" "(if (or (zerop(atoi $value)) (minusp(atoi $value)) ) (progn (alert \"Буквы, ноль
+   line 2080: (action_tile "dclSbugoPDLayoutSufix" "(if (= $reason 1)(mode_tile \"dclSbugoPDDeleteLayouts\" 2))") \\ если нажали ентер
+   line 2185: (action_tile "dclSbugoPDNumerator" "(if (or (zerop(atof $value)) (minusp(atof $value)) ) (progn (alert \"Буквы, ноль и о
+   line 2189: (action_tile "dclSbugoPDDenominator" "(if (or (zerop(atof $value)) (minusp(atof $value)) ) (progn (alert \"Буквы, ноль и
+
+initget calls (line numbers): [376, 519, 539, 549, 590, 2711]
+   -> initget is only meaningful right before getXXX/entsel; verifying neighbours:
+   line   376: initget with no get* call within the next 6 lines (no-op)
+   line   519: initget with no get* call within the next 6 lines (no-op)
+   line   539: initget with no get* call within the next 6 lines (no-op)
+   line   549: initget with no get* call within the next 6 lines (no-op)
+   line   590: initget with no get* call within the next 6 lines (no-op)
+
+(command ...) calls: 28 total
+   calls that pass literal coordinates / point variables (osnap-sensitive) without binding OSMODE:
+   line   693 in SBUGO-ADDLAY                       NO OSMODE handling :: (command "_.zoom" "_w" Point1 Point2)
+   line   718 in SBUGO-ADDLAY                       NO OSMODE handling :: (command "_.zoom" "_w" Point1 Point2)
+   line   822 in SBUGO-ADDLAY                       NO OSMODE handling :: (command "_ucs" "_3" sbugoPDSimpleBlockInsertionPoint sbugoPDSimpleBlockAaxisX s
+   line   838 in SBUGO-ADDLAY                       NO OSMODE handling :: (command "_zoom" "_window" (list 0.0 0.0 0.0) (list (* ViewportWidth sbugoPDScal
+   line  2786 in SBUGO-COLLECT-SELECTED-SHEETS-IN-ONE-SHEET osmode handled in this function :: (command "_move" sbugoPDtempData "" (cond ((= (nth 0 sbugoPDOffsetData) 1) (list
+
+hard-coded absolute paths:
+   line    38: "C:\\sbugo\\0_LISP\\0_Шаблон листа\\Настройки принтера\\PDF\\Plotters\"
+   line  1836: "C:/sbugo/0_lisp/Sbugo_addlay_insert.ini\"
+   line  2087: "C:\\sbugo\\0_LISP\\Sbugo_addlay_insert.ini"
+   line  2197: "C:/sbugo/0_LISP/\"
+
+system variables modified with setvar (potential state leaks):
+   ANNOALLVISIBLE lines [890, 1446]
+   ANNOAUTOSCALE  lines [897, 1453]
+   CANNOSCALE     lines [785, 791]
+   CLAYER         lines [396, 999, 1013, 3042]
+   CMDECHO        lines [1620, 1684, 1702, 1704, 1721, 1732, 1775, 2238, 2939, 2968]
+   CTAB           lines [371, 632, 658, 669, 680, 703, 1018, 1022, 3044]
+   INSUNITS       lines [356, 429, 506]
+   OSMODE         lines [2309, 2716, 2892]
+   PSLTSCALE      lines [723]
+
+====================================================================================================
+7. DUPLICATED CODE
+====================================================================================================
+lines participating in duplicated 8-line windows: 64 of 2182 non-trivial lines (2.9%)
+duplicated ranges (1-based lines): 404-412, 546-558, 587-599, 984-992, 1360-1369, 2631-2640
+
+====================================================================================================
+8. PAPER-SIZE DISPATCH TABLES
+====================================================================================================
+SBUGO-SET-LAYOUT-TYPE-PRINTER: 54 size clauses
+SBUGO-LOCAL-SELECT: 54 size clauses
+INI records parsed from embedded strings: 54
+
+8a. rotation symmetry in Sbugo-set-layout-type-printer (landscape H<W => rot as in INI, portrait => swapped):
+   line  1129  pos 14  H=1189 W=420 -> rotation clause is 'same' but should be 'swapped'   <-- BUG
+
+8b. every position must have both orientations exactly once:
+   positions present: 27
+
+8c. sizes in clauses vs INI sizes for the same position (INI field 4/5):
+   pos 01 (A4): clause 210 x 297 but INI says 210 x 291   (line 1102)
+   pos 01 (A4): clause 210 x 297 but INI says 210 x 291   (line 1103)
+
+8d. two tables identical (H, W, pos)?
+   table1=54 rows, table2=54 rows, identical=True
+
+8e. ambiguity: pairs of different sizes whose +-1.1 mm windows overlap in both dimensions:
+   none
+
+8f. INI record sanity:
+   record 01 (PDF A4): A4 should be 210x297, INI has 210 x 291; media name says 297x210
+   record 101 (PLOT A4): A4 should be 210x297, INI has 210 x 291
+   PDF names=27 PLOT names=27; same set=True
+   PLOT row 123 (A0x2) uses the PDF driver DWG To PDF_all_formats.pc3
+   PLOT row 124 (A0x3) uses the PDF driver DWG To PDF_all_formats.pc3

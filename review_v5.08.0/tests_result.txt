@@ -1,0 +1,81 @@
+---- SBT:T-LOAD
+PASS  defined: SBUGO-ADDLAY
+PASS  defined: SBUGOPDLOADCONFIGSBUGOADDLAYINSERTINI
+PASS  defined: SBUGOPDNEWCONFIGSBUGOADDLAYINSERTINI
+PASS  defined: SBUGOPDCONFIGSSETINGLAYOUT
+PASS  defined: MINELEMENT
+PASS  defined: MAXELEMENT
+PASS  defined: SBUGOPD-SPECIAL-CHARACTERS-NAME-NEW-BLOCK
+PASS  defined: SBUGO-SET-LAYOUT-TYPE-PRINTER
+PASS  defined: SBUGO-SET-SELECT-TYPE-PRINTER
+PASS  defined: SBUGO-ADDLAY-RETURNS-LAYER-STATUS
+PASS  defined: SBUGOPDMXM
+PASS  defined: SBUGOPDMXV
+PASS  defined: SBUGOPDVXS
+PASS  defined: SBUGOPDTRP
+PASS  defined: SBUGOPDPCS2WCS
+PASS  defined: SBUGOPDVPOINSERT
+PASS  defined: C:SBADDLAY
+PASS  global flag G_SbugoPDButtonSplitSheetIntoSeveralSheet is T after load
+PASS  Sbugo-addlay-Error-read exists after load
+---- SBT:T-MINMAX
+PASS  MinElement ints
+PASS  MaxElement ints
+PASS  MinElement reals/neg
+PASS  MaxElement reals/neg
+PASS  MinElement single
+PASS  MinElement of empty list is nil (caller must guard)
+---- SBT:T-SPECIAL-CHARS
+PASS  special: nil -> empty string
+PASS  special: clean text unchanged
+PASS  special: no alert for clean text
+PASS  special: left spaces trimmed
+PASS  special: slash/backslash removed
+PASS  special: alert shown for illegal char
+PASS  special: all 13 illegal chars removed, 'x' kept
+PASS  special: ONE alert even with many illegal chars
+PASS  special: repeated illegal chars removed (A//B///C)
+PASS  special: CMDECHO restored
+NOTE  special: trailing spaces are kept (line 2942 trims on the left only)  ::  result=[abc  ]
+PASS  alert restored to the built-in
+---- SBT:T-MATRIX
+PASS  trp
+PASS  mxv
+PASS  mxm with identity
+PASS  mxm 2x2
+PASS  vxs
+---- SBT:T-INI
+PASS  INI file created
+PASS  INI line count = 55 header + 54*9 + 1 trailing empty = 542
+PASS  loader produced 54*8 = 432 elements
+PASS  loader: no nil elements
+PASS  position keys 01-27 / 101-127 are unique in the settings list
+PASS  PDF rows 01-27: plotter/media/rotation resolved
+PASS  PLOT rows 101-127: plotter/media/rotation resolved
+BUG   INI record 01 (A4) says 210 x 297  ::  INI says 210 x 291 (typo 291 in lines 88 and 142)
+BUG   loader detects a truncated/corrupted INI (should warn, not return a list of nils)  ::  reads blindly 55+54*9 lines; a truncated or hand-edited INI silently yields nil elements
+---- SBT:T-DISPATCH
+PASS  cond-table generated from source has 54 rows
+PASS  sbugo:find-format reproduces position of ALL 54 clauses of the old COND
+INFO  SNAPSHOT of the old COND (v5.08.0, extracted when this file was generated): rotation symmetry  ->  ASYMMETRIC (pos H W): (("14" 1189.0 420.0))  ::  static finding - portrait A3x4 gets the landscape rotation (line 1129); re-check with lsp_lint.py section 8a
+PASS  new rule: portrait swaps rotation (ac0 -> 1)
+PASS  new rule: landscape keeps rotation (ac0 -> 0)
+PASS  new rule: INI ac90 + landscape -> 1
+PASS  new rule: INI ac90 + portrait -> 0
+PASS  find-format: +1.0 mm jitter accepted
+PASS  find-format: 1.3 mm off rejected
+PASS  find-format: custom format added to the table only (A5 148x210)
+INFO  FIX + (equal x 297 1.1): is 295.9 accepted / is 298.9 accepted  ->  nil / T  ::  plugin lines 853-854 use FIX: effective window is [296,299) instead of [295.9,298.1] (asymmetric)
+PASS  sbugo:iround is symmetric
+PASS  sbugo:iround: 295.9->296, 298.9->299
+---- SBT:T-LANGUAGE
+INFO  (wcmatch "ACAD.CTB" "*.ctb")  ->  nil (case-SENSITIVE)  ::  plugin lines 364, 2046, 2049: an upper-case style name would be silently replaced by '' (no plot style)
+PASS  workaround: strcase before wcmatch works
+INFO  scale names built by (strcat "1:" (rtos s 2 0)) for s = 0.5 / 2.5 / 0.4  ->  1:1 / 1:3 / 1:0  ::  plugin lines 782-792: fractional scales get wrong or invalid names (expected 2:1 / 1:2.5 / 2.5:1)
+PASS  vl-sort keeps distinct frames that share an X coordinate
+INFO  (length (vl-sort (list a a b) <by X>)) for two IDENTICAL boxes a and one box b  ->  2  ::  plugin lines 498-499: if 2 (not 3), a duplicated frame object shortens Points and (nth j Points) becomes nil for the last sheet
+PASS  vl-position returns the FIRST of identical boxes (so the 2nd frame is processed as the 1st)
+PASS  foreach restores the loop variable (so 'item' is not a leak)
+PASS  nested defun becomes a global function after the outer one ran
+PASS  comparison with nil does not raise (> nil 0)
+SUMMARY  pass=65  fail=0  known-bugs-present=2  skipped=0
